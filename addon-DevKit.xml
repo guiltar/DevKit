@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="DevKit" title="Developer Kit" version_string="1.1" version_id="1" url="" install_callback_class="" install_callback_method="" uninstall_callback_class="" uninstall_callback_method="">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="devkit.css"><![CDATA[.xenForm {
+    width: 95% !important;
+}
+
+.xenForm .ctrlUnit.fullWidth dd .textCtrl, .xenForm .ctrlUnit.fullWidth dd .mceLayout {
+    width: 95% !important;
+}
+
+textarea.textCtrl.code {
+    min-height:500px;
+}
+
+#contentContainer
+{
+        width: 90%  !important;
+}
+
+	#content
+	{
+		width: 90% !important;
+	}
+
+.pageWidth
+{
+	width: 95% !important;
+}]]></template>
+    <template title="devkit_phrase_filters"><![CDATA[<div class="Popup">
+    <span class="muted">{xen:phrase add_on}:</span> <a rel="Menu">{xen:if $addOn, '{$addOn.title}', 'All'}</a>
+    <div class="Menu">
+        <div class="primaryContent menuHeader"><h3>{xen:phrase add_ons}</h3></div>
+        <ul class="secondaryContent blockLinksList">
+            <li><a href="{xen:adminlink 'languages/phrases', $language, 'addon_id=All'}"><span>All</span></a></li>
+            <li><a href="{xen:adminlink 'languages/phrases', $language, 'addon_id=XenForo'}"><span>XenForo</span></a></li>
+            <xen:foreach loop="$addOns" key="$_addOnsId" value="$_addOn">
+            <li><a href="{xen:adminlink 'languages/phrases', $language, 'addon_id={$_addOn.addon_id}'}"><span>{$_addOn.title}</span></a></li>
+            </xen:foreach>
+        </ul>
+    </div>
+</div>
+<div class="Popup">
+    <span class="muted">{xen:phrase phrases}:</span> <a rel="Menu">{xen:if $phraseFilterTitle, '{$phraseFilterTitle}', {xen:phrase devkit_existing}}</a>
+    <div class="Menu">
+        <div class="primaryContent menuHeader"><h3>{xen:phrase phrases}</h3></div>
+        <ul class="secondaryContent blockLinksList">
+                <li><a href="{xen:adminlink 'languages/phrases', $language, 'phrase_filter=existing'}"><span>{xen:phrase devkit_existing}</span></a></li>
+                <xen:if is="{$language.language_id}">
+                <li><a href="{xen:adminlink 'languages/phrases', $language, 'phrase_filter=untranslated'}"><span>Untranslated</span></a></li>
+                <xen:else />
+                <li><a href="{xen:adminlink 'languages/phrases', $language, 'phrase_filter=found'}"><span>Found in code</span></a></li>
+                <li><a href="{xen:adminlink 'languages/phrases', $language, 'phrase_filter=undefined'}"><span>Undefined</span></a></li>
+                </xen:if>
+        </ul>
+    </div>
+</div>]]></template>
+  </admin_templates>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="DevKit_Listener_Listener" callback_method="loadClassController" active="1" description=""/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="DevKit_Listener_Listener" callback_method="loadClassModel" active="1" description=""/>
+    <listener event_id="template_create" execute_order="10" callback_class="DevKit_Listener_Listener" callback_method="templateCreate" active="1" description=""/>
+    <listener event_id="template_post_render" execute_order="10" callback_class="DevKit_Listener_Listener" callback_method="templatePostRender" active="1" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="devkit_addon_directory_not_found" version_id="1" version_string="1.00"><![CDATA[Can't find directory of the addon. </br>
+It is supposed to be '/library/{dirName}' or '/library/XXX/{dirName}'. </br>
+You may copy the files to the supposed dir to make it work.]]></phrase>
+    <phrase title="devkit_create_zip" version_id="1" version_string="1.0.4"><![CDATA[Create Zip]]></phrase>
+    <phrase title="devkit_error_while_creating_zip" version_id="1" version_string="1.0.4"><![CDATA[Error while creating zip]]></phrase>
+    <phrase title="devkit_existing" version_id="0" version_string=""><![CDATA[Existing]]></phrase>
+    <phrase title="devkit_found" version_id="0" version_string=""><![CDATA[Found in code]]></phrase>
+    <phrase title="devkit_undefined" version_id="0" version_string=""><![CDATA[Undefined]]></phrase>
+    <phrase title="devkit_untranslated" version_id="0" version_string=""><![CDATA[Untranslated]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <bb_code_media_sites/>
+  <template_modifications/>
+</addon>
