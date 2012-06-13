@@ -143,7 +143,7 @@ class DevKit_ControllerAdmin_Language extends XFCP_DevKit_ControllerAdmin_Langua
         {
             $publicTemplates = $this->_getTemplateModel()->getAllTemplatesInStyle(0);
             $adminTemplates = $this->_getAdminTemplateModel()->getAllAdminTemplates();
-	        if($tms['active']){
+	        if(!empty($tms['active'])){
 		        $modifications = XenForo_Model::create('TMS_Model_Modification')->getAllModifications();
 	        }
         }
@@ -151,7 +151,7 @@ class DevKit_ControllerAdmin_Language extends XFCP_DevKit_ControllerAdmin_Langua
         {
             $publicTemplates = $this->_getTemplateModel()->getMasterTemplatesInAddOn($addOnId);
             $adminTemplates = $this->_getAdminTemplateModel()->getAdminTemplatesByAddOn($addOnId);
-	        if($tms['active']){
+	        if(!empty($tms['active'])){
 		        $modifications = XenForo_Model::create('TMS_Model_Modification')->getModificationsByAddOn($addOnId);
 	        }
         }
