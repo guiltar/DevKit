@@ -146,6 +146,9 @@ class DevKit_ControllerAdmin_Language extends XFCP_DevKit_ControllerAdmin_Langua
 	        if(!empty($tms['active'])){
 		        $modifications = XenForo_Model::create('TMS_Model_Modification')->getAllModifications();
 	        }
+			$xfPublicMods = XenForo_Model::create('XenForo_Model_TemplateModification')->getAllModifications();
+			$xfAdminMods = XenForo_Model::create('XenForo_Model_AdminTemplateModification')->getAllModifications();
+			$xfEmailMods = XenForo_Model::create('XenForo_Model_EmailTemplateModification')->getAllModifications();
         }
         else
         {
@@ -154,16 +157,28 @@ class DevKit_ControllerAdmin_Language extends XFCP_DevKit_ControllerAdmin_Langua
 	        if(!empty($tms['active'])){
 		        $modifications = XenForo_Model::create('TMS_Model_Modification')->getModificationsByAddOn($addOnId);
 	        }
+			$xfPublicMods = XenForo_Model::create('XenForo_Model_TemplateModification')->getModificationsByAddOnId($addOnId);
+			$xfAdminMods = XenForo_Model::create('XenForo_Model_AdminTemplateModification')->getModificationsByAddOnId($addOnId);
+			$xfEmailMods = XenForo_Model::create('XenForo_Model_EmailTemplateModification')->getModificationsByAddOnId($addOnId);
         }
-
+		
 	    foreach($modifications as &$modification)
 	    {
 		    $modification['template'] = $modification['replace_value'];
 	    }
+		
+
+		$xfMods = array_merge($xfPublicMods, $xfAdminMods, $xfEmailMods);
+				
+		foreach ($xfMods AS &$modification)
+		{
+			$modification['template'] = $modification['replace'];
+		}
 
         $this->_findPhrasesInTemplates($publicTemplates, $phrases);
         $this->_findPhrasesInTemplates($adminTemplates, $phrases);
 	    $this->_findPhrasesInTemplates($modifications, $phrases);
+		$this->_findPhrasesInTemplates($xfMods, $phrases);
 
         return $phrases;
     }
@@ -317,6 +332,4 @@ class DevKit_ControllerAdmin_Language extends XFCP_DevKit_ControllerAdmin_Langua
     {
         return $this->getModelFromCache('XenForo_Model_AdminTemplate');
     }
-
-
 }
